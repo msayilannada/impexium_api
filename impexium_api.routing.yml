@@ -1,0 +1,63 @@
+impexium_api.settings:
+  path: '/admin/config/impexium_api/settings'
+  defaults:
+    _form: '\Drupal\impexium_api\Form\ImpexiumSettingsForm'
+    _title: 'Impexium Settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+impexium_api.impexium_login_form:
+  path: '/member/login'
+  defaults:
+    _form: 'Drupal\impexium_api\Form\ImpexiumLoginForm'
+    _title: 'Member Login'
+  requirements:
+    _permission: 'access content'
+
+impexium_api.logout:
+  path: '/member/logout'
+  defaults:
+    _controller: 'Drupal\impexium_api\Controller\ImpexiumController::logout'
+    _title: 'Member Logout'
+  requirements:
+    _permission: 'access content'
+
+impexium_api.sso_login:
+  path: '/sso/login'
+  defaults:
+    _controller: 'Drupal\impexium_api\Controller\SsoController::login'
+    _title: 'SSO Login'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: 'TRUE'
+
+impexium_api.my_profile_login:
+  path: '/MyProfile'
+  defaults:
+    _controller: 'Drupal\impexium_api\Controller\SsoController::myProfileLogin'
+    _title: 'My Profile Login'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: 'TRUE'
+
+impexium_api.update_tokens:
+  path: '/admin/config/impexium/update-tokens'
+  defaults:
+    _controller: 'impexium.service:updateApiTokens'
+    _title: 'Impexium API Tokens'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    no_cache: 'TRUE'
+
+impexium_api.get_events:
+  path: '/admin/config/impexium/get-events'
+  defaults:
+    _controller: 'impexium.service:getAllEvents'
+    _title: 'Impexium Events'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    no_cache: 'TRUE'

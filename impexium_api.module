@@ -1,0 +1,35 @@
+<?php
+
+use Drupal\impexium_api\Service\ImpexiumApiService;
+
+function impexium_api_cron() {
+  $impexiumApiService = ImpexiumApiService::getInstance();
+  $tokenUpdated = $impexiumApiService->updateApiTokens();
+  if ($tokenUpdated['success']) {
+    \Drupal::logger('Impexium API')->notice('Token update complete.');
+  }
+  else {
+    \Drupal::logger('Impexium API')->error('Failed to update token.');
+  }
+}
+
+function impexium_api_events_cron() {
+  $impexiumApiService = ImpexiumApiService::getInstance();
+  $allEvents = $impexiumApiService->getAllEvents();
+  if (!empty($allEvents) && is_array($allEvents)) {
+    $util = new \Drupal\nada_utility\Service\NadaUtilityService;
+    $util->storeJsonData($allEvents, 'nada-cron/all_events.json');
+    \Drupal::logger('Impexium API')
+      ->notice(count($allEvents) . ' Impexium events saved.');
+  }
+}
+
+function impexium_api_theme($existing, $type, $theme, $path) {
+  return [
+    'impexium_user_data' => [
+      'render element' => 'children',
+      'template' => 'impexium-user-data',
+      'path' => $path . '/templates',
+    ],
+  ];
+}

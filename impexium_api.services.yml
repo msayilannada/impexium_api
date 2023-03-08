@@ -1,0 +1,3 @@
+services:
+  impexium.service:
+    class: Drupal\impexium_api\Service\ImpexiumApiService

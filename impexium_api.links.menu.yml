@@ -1,0 +1,5 @@
+impexium_api.admin_settings_form:
+  title: 'Impexium Settings'
+  route_name: impexium_api.settings
+  description: 'Impexium API configuration'
+  parent: system.admin_config
